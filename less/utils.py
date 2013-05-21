@@ -39,7 +39,11 @@ def compile_less(input, output, less_path):
     if not os.path.exists(less_root):
         os.makedirs(less_root)
 
-    args = [LESS_EXECUTABLE, input]
+    if settings.DEBUG:
+        args = [LESS_EXECUTABLE, "--line-numbers=mediaquery", input]
+    else:
+        args = [LESS_EXECUTABLE, input]
+
     popen_kwargs = dict(
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
